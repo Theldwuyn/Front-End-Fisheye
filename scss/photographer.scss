@@ -1,0 +1,271 @@
+#contact_modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    background-color: rgba(196, 196, 196, 0.4);
+}
+
+.photograph-header {
+    background-color: #FAFAFA;
+    height: 300px;
+    margin: 0 100px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    &__content h1 {
+        font-size: 4em;
+        color: #D3573C;
+        margin: 0;
+    }
+}
+
+.location {
+    font-size: 1.5em;
+}
+
+.medias-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin: 60px 100px;
+    gap: 50px;
+}
+
+.media-card {
+    justify-self: center;
+
+    &__media {
+        width: 350px;
+        height: 300px;
+        overflow-clip-margin: unset;
+        object-fit: cover;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    &__content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 10px 0;
+
+        &--title {
+            font-weight: 700;
+            font-size: 1.2em;
+        }
+    }
+}
+
+.contact_button {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    padding: 11px;
+    width: 170px;
+    height: 70px;
+    border: none;
+    background-color: #901C1C;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.modal {
+    border-radius: 5px;
+    background-color: #DB8876;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 35px;
+    margin: 5% auto;
+
+    &-header {
+        justify-content: space-between;
+        width: 100%;
+        margin: 20px 0 50px 0;
+    }
+}
+
+.modal-header img {
+    cursor: pointer;
+}
+
+.modal-header__content h2,
+.modal-header__content p {
+    font-size: 64px;
+    font-weight: normal;
+    text-align: left;
+    margin: 0;
+}
+
+form {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+form label {
+    color: #312E2E;
+    font-size: 36px;
+}
+
+form div {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: self-start;
+    margin-bottom: 26px;
+}
+
+form input,
+form textarea {
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.25em;
+}
+
+form input {
+    height: 68px;
+}
+
+form textarea {
+    height: 170px;
+}
+
+.blue-border {
+	border: 2px solid #000060;
+}
+
+.formData-modifier {
+	display: block;
+    padding: 5px;
+	color: #000060;
+	font-size: 1em;
+	margin: 7px 0;
+	text-align: right;
+}
+
+.filter-dropdown {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin: 60px 100px 0 100px;
+    font-weight: 700;
+    font-size: 1.1em;
+
+    &__label {
+        transform: translate(0, 8px);
+    }
+}
+
+.select-wrapper {
+    position: relative;
+    width: 170px;
+    background-color: #901C1C;
+    border-radius: 5px;
+    color: white;
+    box-sizing: border-box;
+    overflow: hidden;
+    cursor: pointer;
+
+    &__icon {
+        position: absolute;
+        top: 20px;
+        right: 10px;
+        transform: translate(0, -50%);
+    }
+
+    &__selected {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        padding: 10px 30px 10px 10px;
+    }
+}
+
+#options div {
+    margin: 10px;
+    cursor: pointer;
+}
+
+#options div:nth-child(-n + 2) {
+    border-bottom: 2px solid white;
+    padding-bottom: 10px;
+}
+
+.rotate {
+    transform-origin: center 3px;
+    transform: rotate(180deg);
+}
+
+.hidden {
+    display: none;
+}
+
+#lightbox {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    background-color: rgba(196, 196, 196, 0.4);
+}
+
+.lightbox__modal {
+    margin: 5%;
+}
+
+.lightbox__content {
+    background-color: white;
+    font-size: 40px;
+    color: #901C1C;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    padding: 10px;
+
+    &-close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+    }
+
+}
+
+.lightbox-media {
+    /*width: 400px;
+    height: auto;*/
+    height: 650px;
+    width: auto;
+
+    &__caption {
+       font-size: 0.6em; 
+    }
+}
+
+#nextBtn,
+#previousBtn {
+    cursor: pointer;
+}
+
+// .lightbox__content-close-btn {
+//     position: absolute;
+//     top: 10px;
+//     right: 10px;
+//     cursor: pointer;
+// }
+

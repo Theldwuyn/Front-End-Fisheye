@@ -1,6 +1,8 @@
 import { InputTextEmail, InputTextArea } from "../models/FormInputs.js";
 
+// eslint-disable-next-line
 const textReg = new RegExp("^[A-Za-zÀ-ÖØ-öø-ÿ\-]{2,}");
+// eslint-disable-next-line
 const emailReg = new RegExp("^[^\s@]+@[^\s@]+\.[^\s.]{2,}$");
 
 export class InputFactory {

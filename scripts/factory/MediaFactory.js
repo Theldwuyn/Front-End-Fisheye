@@ -1,15 +1,15 @@
-import { Videos, Photos } from "../templates/photographerTemplate.js"
+import { Videos, Photos } from "../templates/MediaTemplate.js";
 
 export class MediaFactory {
     constructor(data) {
         if(data.image) {
-            const media = new Photos(data);
-            const card = media.getPhotoCard();
-            return card;
+            const mediaObject = new Photos(data);
+            const card = mediaObject.getPhotoCard();
+            return { mediaObject, card };
         } else if (data.video) {
-            const media = new Videos(data);
-            const card = media.getVideoCard();
-            return card;
+            const mediaObject = new Videos(data);
+            const card = mediaObject.getVideoCard();
+            return { mediaObject, card };
         } else {
             throw new Error('Unknown media type');
         }
