@@ -25,7 +25,7 @@ export class Videos extends Media {
             </video>
             <div class="media-card__content">
                 <p class="red-font media-card__content--title">${this.title}</p>
-                <p>${this.likes}
+                <p class=" media-card__content--likeBtn">${this.likes}
                     <i class="fa-solid fa-heart red-font"></i>
                 </p>
             </div>
@@ -59,7 +59,7 @@ export class Photos extends Media {
             <img src="${this.source}" alt="${this.title}" class="media-card__media">
             <div class="media-card__content">
                 <p class="red-font media-card__content--title">${this.title}</p>
-                <p>${this.likes}
+                <p class=" media-card__content--likeBtn">${this.likes}
                     <i class="fa-solid fa-heart red-font"></i>
                 </p>
             </div>
