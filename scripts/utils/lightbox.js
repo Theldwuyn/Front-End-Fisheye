@@ -1,33 +1,45 @@
 let currentIndex = 0;
 
-function nextMedia(arrayOfMedia) {
-    if (currentIndex < arrayOfMedia.length -1) {
-        currentIndex += 1;
-    } else {
-        currentIndex = 0;
-    }
-    console.log(currentIndex);
-    updateLightbox(arrayOfMedia, currentIndex);
-}
-
-function previousMedia(arrayOfMedia) {
-    if (currentIndex > 0) {
-        currentIndex -= 1;
-    } else {
-        currentIndex = arrayOfMedia.length -1;
-    }
-    console.log(currentIndex);
-    updateLightbox(arrayOfMedia, currentIndex);
-}
-
-const nextBtn = document.getElementById("nextBtn");
-const previousBtn = document.getElementById("previousBtn");
-
 export function initLightbox(allMediaNode, arrayOfMedia) {
-    console.log(nextBtn);
-    console.log(arrayOfMedia);
-    console.log(allMediaNode);
-    //const allMedia = document.querySelectorAll(".media-card__media");
+
+    function nextMedia() {
+        if (currentIndex < arrayOfMedia.length -1) {
+            currentIndex += 1;
+        } else {
+            currentIndex = 0;
+        }
+        console.log(currentIndex);
+        updateLightbox(arrayOfMedia, currentIndex);
+    }
+    
+    function previousMedia() {
+        if (currentIndex > 0) {
+            currentIndex -= 1;
+        } else {
+            currentIndex = arrayOfMedia.length -1;
+        }
+        console.log(currentIndex);
+        updateLightbox(arrayOfMedia, currentIndex);
+    }
+    
+    function handleNextBtnClick() {
+        nextMedia();
+    }
+    
+    function handlePreviousBtnClick() {
+        previousMedia();
+    }
+
+    const nextBtn = document.getElementById("nextBtn");
+    const previousBtn = document.getElementById("previousBtn");
+
+    const newNextBtn = nextBtn.cloneNode(true);
+    const newPreviousBtn = previousBtn.cloneNode(true);
+
+    nextBtn.replaceWith(newNextBtn);
+    previousBtn.replaceWith(newPreviousBtn);
+    
+
     console.log("init");
     allMediaNode.forEach(media => {
         media.addEventListener("click", (e) => {
@@ -41,8 +53,8 @@ export function initLightbox(allMediaNode, arrayOfMedia) {
         });
     });
 
-    nextBtn.addEventListener("click", () => nextMedia(arrayOfMedia));
-    previousBtn.addEventListener("click", () => previousMedia(arrayOfMedia));
+    newNextBtn.addEventListener("click", handleNextBtnClick);
+    newPreviousBtn.addEventListener("click", handlePreviousBtnClick);
 }
 
 

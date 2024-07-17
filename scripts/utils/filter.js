@@ -31,7 +31,6 @@ document.body.addEventListener("click", () => {
     rotateIcon();
 });
 
-
 async function updateMedia(filterOption) {
     const filteredMedia = await filterMedia(filterOption);
     displayMedias(filteredMedia, urlId);
