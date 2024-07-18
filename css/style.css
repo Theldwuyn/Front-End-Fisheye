@@ -44,8 +44,11 @@ p {
 }
 
 .photographer_section {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
     gap: 70px;
     margin-top: 100px;
 }
@@ -56,6 +59,15 @@ p {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    width: 350px;
+}
+
+.photographer_section article a {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
 }
 
 .photographer_section article h2 {

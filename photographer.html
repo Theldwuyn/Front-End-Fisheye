@@ -18,7 +18,9 @@
 
 <body>
     <header>
-        <img src="assets/images/logo.png" class="logo" />
+        <a href="index.html">
+            <img src="assets/images/logo.png" class="logo" alt="Fisheye home page">
+        </a>
     </header>
     <main id="main">
         <div class="photograph-header">
@@ -26,21 +28,39 @@
             <button class="contact_button">Contactez-moi</button>
             <div class="photograph-header__img"></div>
         </div>
-        <div class="filter-dropdown">
-            <p class="filter-dropdown__label">Trier par </p>
-            <div class="select-wrapper">
-                <div class="select-wrapper__selected">Sélectionner une option</div>
-                <span class="select-wrapper__icon"><i class="fa-solid fa-chevron-up"></i></span>
-                <div id="options" class="hidden">
-                    <div data-value="popularity">Popularité</div>
-                    <div data-value="date">Date</div>
-                    <div data-value="title">Titre</div>
+        <!--
+            <div class="filter-dropdown">
+                <p class="filter-dropdown__label" role="label">Trier par </p>
+                <div class="select-wrapper" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="false" name="orderby">
+                    <div class="select-wrapper__selected">Sélectionner une option</div>
+                    <span class="select-wrapper__icon"><i class="fa-solid fa-chevron-up"></i></span>
+                    <div id="options" class="hidden" role="listbox">
+                        <div role="option" tabindex="0" data-value="popularity">Popularité</div>
+                        <div role="option" tabindex="0" data-value="date">Date</div>
+                        <div role="option" tabindex="0" data-value="title">Titre</div>
+                    </div>
+                </div>
+            </div>
+        -->
+        <div id="dropdown">
+            <label for="listbox-dropdown">Trier par </label>
+            <div class="select-container">
+                <div class="select-container__icon-wrapper">
+                    <i class="fa-solid fa-chevron-up"></i>
+                </div>
+                <button type="button" id="listbox-dropdown">Sélectionner une option</button>
+                <div class="dropdown-menu">
+                    <ul class="dropdown-menu__list hidden">
+                        <li class="dropdown-menu__list-item" tabindex="0">Popularité</li>
+                        <li class="dropdown-menu__list-item" tabindex="0">Date</li>
+                        <li class="dropdown-menu__list-item" tabindex="0">Titre</li>
+                    </ul>
                 </div>
             </div>
         </div>
         <div class="medias-wrapper"></div>
     </main>
-    <div id="contact_modal">
+    <div id="contact_modal" aria-hidden="true">
         <div class="modal">
             <header class="modal-header">
                 <div class="modal-header__content">
@@ -70,7 +90,7 @@
             </form>
         </div>
     </div>
-    <div id="lightbox" role="dialog">
+    <div id="lightbox" role="dialog" aria-hidden="true">
         <div class="lightbox__modal">
             <div class="lightbox__content" aria-label="vue zoomé du media">
                 <div class="lightbox__content-close-btn" aria-label="Bouton de fermeture de la boîte de dialogue">

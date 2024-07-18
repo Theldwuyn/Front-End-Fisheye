@@ -1,6 +1,5 @@
 import { getUrlId } from "../pages/photographer.js";
 
-
 export function initStickbar(arrayOfMedia, photographersObject) {
 
     const urlId = getUrlId();
@@ -22,13 +21,6 @@ export function initStickbar(arrayOfMedia, photographersObject) {
         stickbar.appendChild(stickbarContent);
     }    
 }
-
-// function countLikes(arrayOfMedia) {
-//     let totalLikes
-//     arrayOfMedia.forEach(media => {
-//         totalLikes += media.likes;
-//     });
-// }
 
 function countLikes(arrayOfMedia) {
     let totalLikes = 0;

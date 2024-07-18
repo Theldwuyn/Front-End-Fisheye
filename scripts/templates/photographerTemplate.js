@@ -13,10 +13,12 @@ export class PhotographerTemplate {
         const article = document.createElement( 'article' );
         
         const userCardContent = `
-            <a class="img-container" href="photographer.html?id=${this.id}">
-                <img src="${this.picture}" alt="${this.name}">
+            <a href="photographer.html?id=${this.id}">
+                <div class="img-container">
+                    <img src="${this.picture}" alt="${this.name}">
+                </div>
+                <h2>${this.name}</h2>
             </a>
-            <h2>${this.name}</h2>
             <p class="red-font">${this.city}, ${this.country}</p>
             <p>${this.tagline}</p>
             <p class="grey-font">${this.price}€/jour

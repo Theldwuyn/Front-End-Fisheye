@@ -15,7 +15,7 @@ async function displayData(photographers) {
 }
 
 async function init() {
-    // Récupère les datas des photographes
+    // Get photographers data from json file
     const { photographers } = await getPhotographers();
     displayData(photographers);
 }

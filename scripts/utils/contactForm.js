@@ -17,6 +17,12 @@ function closeModal() {
 modalBtn.addEventListener("click", displayModal);
 closeBtn.addEventListener("click", closeModal);
 
+window.addEventListener("keydown", (e) => {
+    if(e.key === 'Escape') {
+        closeModal();
+    }
+});
+
 
 function main() {
     let boolFromValidation = [];

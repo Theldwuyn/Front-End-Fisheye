@@ -1,6 +1,9 @@
 let currentIndex = 0;
+let boolTest = false;
 
-export function initLightbox(allMediaNode, arrayOfMedia) {
+export function initLightbox(arrayOfMedia) {
+
+    const allMediaNode = document.querySelectorAll(".media-card__media");
 
     function nextMedia() {
         if (currentIndex < arrayOfMedia.length -1) {
@@ -23,38 +26,39 @@ export function initLightbox(allMediaNode, arrayOfMedia) {
     }
     
     function handleNextBtnClick() {
+        console.log("AAAA");
         nextMedia();
     }
     
     function handlePreviousBtnClick() {
+        console.log("BBBB");
         previousMedia();
     }
 
     const nextBtn = document.getElementById("nextBtn");
     const previousBtn = document.getElementById("previousBtn");
+   
 
-    const newNextBtn = nextBtn.cloneNode(true);
-    const newPreviousBtn = previousBtn.cloneNode(true);
-
-    nextBtn.replaceWith(newNextBtn);
-    previousBtn.replaceWith(newPreviousBtn);
-    
-
-    console.log("init");
     allMediaNode.forEach(media => {
         media.addEventListener("click", (e) => {
             e.preventDefault();
             openLightbox();
-            //console.log(e.target);
             currentIndex = getIndex(arrayOfMedia, e.target);
             console.log(currentIndex);
-            //console.log(currentIndex);
             updateLightbox(arrayOfMedia, currentIndex);
         });
     });
 
-    newNextBtn.addEventListener("click", handleNextBtnClick);
-    newPreviousBtn.addEventListener("click", handlePreviousBtnClick);
+    nextBtn.addEventListener("click", handleNextBtnClick);
+    previousBtn.addEventListener("click", handlePreviousBtnClick);
+
+    
+    if(boolTest) {
+        nextBtn.removeEventListener("click", handleNextBtnClick);
+        previousBtn.removeEventListener("click", handlePreviousBtnClick);
+    }
+    
+    boolTest = true;
 }
 
 
@@ -84,7 +88,8 @@ function getIndex(arrayOfMedia, target) {
         
         case "VIDEO":
             index = arrayOfMedia.indexOf(arrayOfMedia
-                        .find((elem) => elem.source === target.firstElementChild.getAttribute("src"))
+                        .find((elem) => elem.source === target.firstElementChild
+                                                        .getAttribute("src"))
                     );
             return index;
         
