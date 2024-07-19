@@ -26,12 +26,10 @@ export function initLightbox(arrayOfMedia) {
     }
     
     function handleNextBtnClick() {
-        console.log("AAAA");
         nextMedia();
     }
     
     function handlePreviousBtnClick() {
-        console.log("BBBB");
         previousMedia();
     }
 
@@ -49,32 +47,82 @@ export function initLightbox(arrayOfMedia) {
         });
     });
 
-    nextBtn.addEventListener("click", handleNextBtnClick);
-    previousBtn.addEventListener("click", handlePreviousBtnClick);
+    allMediaNode.forEach(media => {
+        media.addEventListener("keyup", (e) => {
+            if(e.key === 'Enter') {
+                e.preventDefault();
+                openLightbox();
+                currentIndex = getIndex(arrayOfMedia, e.target);
+                updateLightbox(arrayOfMedia, currentIndex);
+            }
+        });
+    });
 
     
-    if(boolTest) {
-        nextBtn.removeEventListener("click", handleNextBtnClick);
-        previousBtn.removeEventListener("click", handlePreviousBtnClick);
+    if(!boolTest) {
+        nextBtn.addEventListener("click", handleNextBtnClick);
+        nextBtn.addEventListener("keyup", (e) => {
+            if(e.key === 'Enter') {
+                handleNextBtnClick();
+            }
+        });
+        previousBtn.addEventListener("click", handlePreviousBtnClick);
+        previousBtn.addEventListener("keyup", (e) => {
+            if(e.key === 'Enter') {
+                handlePreviousBtnClick();
+            }
+        });
     }
     
     boolTest = true;
 }
 
+const lightbox = document.getElementById("lightbox");
+const mainSection = document.getElementById("main");
+const headerSection = document.getElementById("header");
 
 function openLightbox() {
-    document.getElementById("lightbox").style.display = "block";
+    lightbox.style.display = "block";
+    lightbox.setAttribute("aria-hidden", "false");
+
+    mainSection.setAttribute("inert", "true");
+    mainSection.setAttribute("aria-hidden", "true");
+
+    headerSection.setAttribute("inert", "true");
+    headerSection.setAttribute("aria-hidden", "true");
+
     console.log("open");
 }
 
 function closeLightbox() {
-    document.getElementById("lightbox").style.display = "none";
+    lightbox.style.display = "none";
+    lightbox.setAttribute("aria-hidden", "true");
+
+    mainSection.removeAttribute("inert");
+    mainSection.setAttribute("aria-hidden", "false");
+
+    headerSection.removeAttribute("inert");
+    headerSection.setAttribute("aria-hidden", "false");
+
     console.log("close");
 }
 
 const closeLightboxBtn = document.querySelector(".lightbox__content-close-btn");
+
 closeLightboxBtn.addEventListener("click", () => {
     closeLightbox();
+});
+
+closeLightboxBtn.addEventListener("keyup", (e) => {
+    if(e.key === 'Enter') {
+        closeLightbox();
+    }
+});
+
+window.addEventListener("keyup", (e) => {
+    if(e.key === 'Escape' && lightbox.style.display === 'block') {
+        closeLightbox();
+    }
 });
 
 function getIndex(arrayOfMedia, target) {

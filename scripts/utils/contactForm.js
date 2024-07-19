@@ -3,22 +3,46 @@ import { UserData } from "../models/UserData.js";
 
 const modalBtn = document.querySelector(".contact_button");
 const closeBtn = document.querySelector(".close-modal");
+const modal = document.getElementById("contact_modal");
+const mainSection = document.getElementById("main");
+const headerSection = document.getElementById("header");
 
-function displayModal() {
-    const modal = document.getElementById("contact_modal");
+function openModal() {
 	modal.style.display = "block";
+    modal.setAttribute("aria-hidden", "false");
+
+    // The following code disabled the page content when the modal is open
+    // to allow the user to navigate through the modal with the tab key
+    mainSection.setAttribute("inert", "true");
+    mainSection.setAttribute("aria-hidden", "true");
+
+    headerSection.setAttribute("inert", "true");
+    headerSection.setAttribute("aria-hidden", "true");
 }
 
 function closeModal() {
-    const modal = document.getElementById("contact_modal");
     modal.style.display = "none";
+    modal.setAttribute("aria-hidden", "true");
+
+    // The following code re-enable the page content when the modal is close
+    mainSection.removeAttribute("inert");
+    mainSection.setAttribute("aria-hidden", "false");
+
+    headerSection.removeAttribute("inert");
+    headerSection.setAttribute("aria-hidden", "false");
 }
 
-modalBtn.addEventListener("click", displayModal);
-closeBtn.addEventListener("click", closeModal);
+modalBtn.addEventListener("click", openModal);
 
-window.addEventListener("keydown", (e) => {
-    if(e.key === 'Escape') {
+closeBtn.addEventListener("click", closeModal);
+closeBtn.addEventListener("keyup", (e) => {
+    if(e.key === 'Enter') {
+        closeModal();
+    }
+});
+
+window.addEventListener("keyup", (e) => {
+    if(e.key === 'Escape' && modal.style.display === 'block') {
         closeModal();
     }
 });

@@ -37,7 +37,7 @@ export class PhotographerTemplate {
 
         const headerContent = `
             <h1>${this.name}</h1>
-            <p class="red-font location">${this.city}, ${this.country}</p>
+            <h2 class="red-font location">${this.city}, ${this.country}</h2>
             <p class="grey-font">${this.tagline}</p>
             `;
         const imgContent = `

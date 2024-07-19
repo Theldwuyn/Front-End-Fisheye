@@ -73,6 +73,10 @@
   border-radius: 5px;
   cursor: pointer;
 }
+.contact_button:hover, .contact_button:focus {
+  background-color: #DB8876;
+  color: black;
+}
 
 .modal {
   border-radius: 5px;
@@ -96,7 +100,7 @@
 }
 
 .modal-header__content h2,
-.modal-header__content p {
+.modal-header__content h3 {
   font-size: 64px;
   font-weight: normal;
   text-align: left;

@@ -21,8 +21,11 @@ export function getUrlId() {
  */
 function addNameToModal(photograph) {
     const modalName = document.getElementById("name");
-    const nameText = photograph.name;
-    modalName.innerText = nameText;  
+    //const nameText = photograph.name;
+    const nameText = `
+        <span class="sr-only">Contacter</span>${photograph.name}
+        `;
+    modalName.innerHTML = nameText;  
 }
 
 let arrayOfPhotographersObject = [];

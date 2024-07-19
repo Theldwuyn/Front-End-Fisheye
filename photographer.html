@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 
 <head>
     <link href="css/normalize.css" rel="stylesheet" type="text/css">
@@ -17,7 +17,7 @@
 </head>
 
 <body>
-    <header>
+    <header id="header">
         <a href="index.html">
             <img src="assets/images/logo.png" class="logo" alt="Fisheye home page">
         </a>
@@ -28,27 +28,13 @@
             <button class="contact_button">Contactez-moi</button>
             <div class="photograph-header__img"></div>
         </div>
-        <!--
-            <div class="filter-dropdown">
-                <p class="filter-dropdown__label" role="label">Trier par </p>
-                <div class="select-wrapper" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="false" name="orderby">
-                    <div class="select-wrapper__selected">Sélectionner une option</div>
-                    <span class="select-wrapper__icon"><i class="fa-solid fa-chevron-up"></i></span>
-                    <div id="options" class="hidden" role="listbox">
-                        <div role="option" tabindex="0" data-value="popularity">Popularité</div>
-                        <div role="option" tabindex="0" data-value="date">Date</div>
-                        <div role="option" tabindex="0" data-value="title">Titre</div>
-                    </div>
-                </div>
-            </div>
-        -->
         <div id="dropdown">
             <label for="listbox-dropdown">Trier par </label>
             <div class="select-container">
                 <div class="select-container__icon-wrapper">
                     <i class="fa-solid fa-chevron-up"></i>
                 </div>
-                <button type="button" id="listbox-dropdown">Sélectionner une option</button>
+                <input type="button" id="listbox-dropdown" name="listbox-dropdown" value="Sélectionner une option">
                 <div class="dropdown-menu">
                     <ul class="dropdown-menu__list hidden">
                         <li class="dropdown-menu__list-item" tabindex="0">Popularité</li>
@@ -59,15 +45,16 @@
             </div>
         </div>
         <div class="medias-wrapper"></div>
+        <div id="stickbar"></div>
     </main>
-    <div id="contact_modal" aria-hidden="true">
+    <div id="contact_modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="name">
         <div class="modal">
             <header class="modal-header">
                 <div class="modal-header__content">
                     <h2>Contactez-moi</h2>
-                    <p id="name"></p>
+                    <h3 id="name"></h3>
                 </div>
-                <img src="assets/icons/close.svg" class="close-modal">
+                <img src="assets/icons/close.svg" class="close-modal" tabindex="0" alt="Fermer le formulaire de contact">
             </header>
             <form>
                 <div>
@@ -90,23 +77,23 @@
             </form>
         </div>
     </div>
-    <div id="lightbox" role="dialog" aria-hidden="true">
+    <div id="lightbox" role="dialog" aria-hidden="true" aria-label="vue zoomé du media">
         <div class="lightbox__modal">
-            <div class="lightbox__content" aria-label="vue zoomé du media">
-                <div class="lightbox__content-close-btn" aria-label="Bouton de fermeture de la boîte de dialogue">
+            <div class="lightbox__content">
+                <div class="lightbox__content-close-btn" role="button" tabindex="0" aria-label="Fermer la boite de dialogue">
                     <i class="fa-solid fa-xmark lightbox__content-close-btn--icon"></i>
                 </div>
-                <div id="previousBtn" aria-label="Affichage du média précédent">
+                <div id="previousBtn" role="button" aria-label="Affichage du média précédent" tabindex="0">
                     <i class="fa-solid fa-chevron-left"></i>
                 </div>
                 <div class="lightbox__content-media"></div>
-                <div id="nextBtn" aria-label="Affichage du média suivant">
+                <div id="nextBtn" role="button" aria-label="Affichage du média suivant" tabindex="0">
                     <i class="fa-solid fa-chevron-right"></i>
                 </div>
             </div>
         </div>
     </div>
-    <div id="stickbar"></div>
+    <!-- <div id="stickbar"></div> -->
 
     <script type="module" src="/scripts/pages/photographer.js"></script>
     <script type="module" src="/scripts/utils/contactForm.js"></script>

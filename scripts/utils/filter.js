@@ -116,8 +116,8 @@ async function filterMedia(filterOption) {
 optionsItems.forEach(item => {
     item.addEventListener("click", (e) => {
         e.stopPropagation();
-        dropdownBtn.textContent = e.target.textContent;
-        const filterOption = dropdownBtn.textContent;
+        dropdownBtn.value = e.target.textContent;
+        const filterOption = dropdownBtn.value;
         console.log(filterOption);
         updateMedia(filterOption);
         toggleHiddenClass();
@@ -130,8 +130,8 @@ optionsItems.forEach(item => {
     item.addEventListener("keyup", (e) => {
         if(e.key === 'Enter') {
             e.stopPropagation();
-            dropdownBtn.textContent = e.target.textContent;
-            const filterOption = dropdownBtn.textContent;
+            dropdownBtn.value = e.target.textContent;
+            const filterOption = dropdownBtn.value;
             console.log(filterOption);
             updateMedia(filterOption);
             toggleHiddenClass();
