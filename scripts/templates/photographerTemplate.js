@@ -1,7 +1,7 @@
 export class PhotographerTemplate {
     constructor(data) {
         this.name = data.name;
-        this.picture = `assets/Sample Photos/Photographers ID Photos/${data.portrait}`
+        this.picture = `assets/Sample_Photos/Photographers_ID_Photos/${data.portrait}`
         this.id = data.id;
         this.city = data.city;
         this.country = data.country;

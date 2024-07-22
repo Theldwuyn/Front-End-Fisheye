@@ -7,7 +7,7 @@ import { initStickbar } from "../utils/stickbar.js";
 
 /**
  * Retrieve the photograph ID within the page's URL
- * @returns urlId as an integer
+ * @returns {Number} urlId
  */
 export function getUrlId() {
     const params = new URL(document.location).searchParams;
@@ -17,7 +17,7 @@ export function getUrlId() {
 
 /**
  * Add current photograph's name to the contact modal
- * @param {object} photograph 
+ * @param {Object} photograph 
  */
 function addNameToModal(photograph) {
     const modalName = document.getElementById("name");
@@ -36,7 +36,7 @@ let arrayOfPhotographersObject = [];
  * Update the page's header with current photograph's informations
  * Call addNameToModal to update the contact modal
  * @param {Array} photographers from photographers.json
- * @param {integer} urlId 
+ * @param {Number} urlId 
  */
 async function displayHeader(photographers, urlId) {
     photographers.forEach((photographer) => {
@@ -60,11 +60,11 @@ let arrayOfCardNode = [];
  * medias to create the card (article) and the media object, then append the card
  * to the medias-wrapper container
  * @param {Array} medias 
- * @param {integer} urlId 
+ * @param {Number} urlId 
  */
 export async function displayMedias(medias, urlId) {
 
-    /* Emptying both arrayOfMedia and arrayOfCardNode to avoid duplicate
+    /* Emptying both arrayOfMediaObject and arrayOfCardNode to avoid duplicate
     when updateMedia() call back this function */
     arrayOfMediaObject = [];
     arrayOfCardNode = [];
@@ -81,17 +81,33 @@ export async function displayMedias(medias, urlId) {
         mediaSection.appendChild(card);
     });
 
-    //Initialize app features (like button and stickbar)
+    initPageFeatures(arrayOfMediaObject, arrayOfCardNode, arrayOfPhotographersObject);
+}
+
+/**
+ * Initialize page's features (lightbox, like buttons and stickbar)
+ * @param {Array[Object]} arrayOfMediaObject 
+ * @param {Array[Node]} arrayOfCardNode 
+ * @param {Array[Object]} arrayOfPhotographersObject 
+ */
+function initPageFeatures(arrayOfMediaObject, arrayOfCardNode, arrayOfPhotographersObject) {
+
     initLightbox(arrayOfMediaObject);
 
     arrayOfCardNode.forEach(card => {
         const likeBtn = card.querySelector(".media-card__content--likeBtn");
         likeBtn.addEventListener("click", (e) => {
-            if (e.target.nodeName === "I") {
+            if (e.target.nodeName === "SPAN") {
+                likeBtnHandler(arrayOfMediaObject, e.target);
+            }
+        });
+        likeBtn.addEventListener("keyup", (e) => {
+            if (e.key === 'Enter' && e.target.nodeName === "SPAN") {
                 likeBtnHandler(arrayOfMediaObject, e.target);
             }
         });
     });
+
     initStickbar(arrayOfMediaObject, arrayOfPhotographersObject);
 }
 
@@ -111,9 +127,11 @@ async function init() {
 
 init();
 
-window.addEventListener("keyup", (e) => {
-    if(e.key === 'Tab') {
-        const focus = document.activeElement;
-        console.log(focus);
-    }
-});
+
+// Test, return focused element in the console
+// window.addEventListener("keyup", (e) => {
+//     if(e.key === 'Tab') {
+//         const focus = document.activeElement;
+//         console.log(focus);
+//     }
+// });

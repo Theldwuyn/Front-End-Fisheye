@@ -12,11 +12,13 @@ export class InputFactory {
                 input, textReg, "Veuillez entrer 2 caractères alphabétique ou plus"
             );
             return inputText;
+
         } else if (input.type === "email") {
             const inputEmail = new InputTextEmail(
                 input, emailReg, "Veuillez renseigner une adresse mail valide"
             );
             return inputEmail;
+            
         } else {
             const inputArea = new InputTextArea(
                 input, "Veuillez entrer votre message"

@@ -86,7 +86,6 @@ p {
 .photographer_section article img {
     height: 200px;
     width: 200px;
-    overflow-clip-margin: unset;
     object-fit: cover;
 }
 

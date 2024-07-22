@@ -7,12 +7,13 @@ const optionsList = document.querySelector(".dropdown-menu__list");
 const optionsItems = document.querySelectorAll(".dropdown-menu__list-item");
 const icon = document.querySelector(".select-container__icon-wrapper");
 
-console.log(dropdownBtn);
-console.log(optionsList);
+// console.log(dropdownBtn);
+// console.log(optionsList);
 
 const urlId = getUrlId();
 
-/* rotateIcon() and toggleHiddenClass() manage the displaying of the filter menu */
+/* rotateIcon() and toggleHiddenClass() manage the displaying of the filter menu
+and its icon */
 function rotateIcon() {
     if(optionsList.classList.contains("hidden")) {
         icon.classList.remove("rotate");
@@ -49,7 +50,8 @@ document.body.addEventListener("click", () => {
 });
 
 window.addEventListener("keyup", (e) => {
-    if(e.key === "Escape") {
+    if(e.key === "Escape" && !optionsList.classList.contains("hidden")) {
+        //console.log("close filter");
         optionsList.classList.add("hidden");
         changeButtonBorderRadiusStyle();
         rotateIcon();
@@ -67,9 +69,9 @@ async function updateMedia(filterOption) {
 }
 
 /**
- * Filter the media from json file in relation to the selected filter
+ * Filter the media from json file based on the selected filter
  * @param {string} filterOption data-value of selected filter
- * @returns filteredMedia {array} or media {array} if no filter
+ * @returns {Array} filteredMedia or media if no filter
  */
 async function filterMedia(filterOption) {
     let filteredMedia = [];
@@ -77,23 +79,17 @@ async function filterMedia(filterOption) {
     switch(filterOption) {
         case "Popularité":
             // Sort from most popular to less popular
-            filteredMedia = media.sort(function(a,b) {
-                return b.likes - a.likes;
-            });
+            filteredMedia = media.sort((a,b) => b.likes - a.likes);
             return filteredMedia;
 
         case "Date":
             // Sort form most recent to less recent
-            filteredMedia = media.sort(function(a,b) {
-                return new Date(b.date) - new Date(a.date);
-            });
+            filteredMedia = media.sort((a,b) => new Date(b.date) - new Date(a.date));
             return filteredMedia;
 
         case "Titre":
             // Alphabetical sort
-            filteredMedia = media.sort(function(a,b) {
-                return a.title.localeCompare(b.title);
-            });
+            filteredMedia = media.sort((a,b) => a.title.localeCompare(b.title));
             return filteredMedia;
         
         default:
@@ -101,24 +97,12 @@ async function filterMedia(filterOption) {
     }
 }
 
-// options.addEventListener("click", (e) => {
-//     e.stopPropagation();
-    
-//     // Display the selected option in the "selected" node
-//     selected.textContent = e.target.textContent;
-
-//     const filterOption = e.target.getAttribute("data-value");
-//     updateMedia(filterOption);
-//     toggleHiddenClass();
-//     rotateIcon();
-// });
-
 optionsItems.forEach(item => {
     item.addEventListener("click", (e) => {
         e.stopPropagation();
         dropdownBtn.value = e.target.textContent;
         const filterOption = dropdownBtn.value;
-        console.log(filterOption);
+        //console.log(filterOption);
         updateMedia(filterOption);
         toggleHiddenClass();
         changeButtonBorderRadiusStyle();

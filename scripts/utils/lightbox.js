@@ -1,11 +1,22 @@
 let currentIndex = 0;
-let boolTest = false;
+let isTherePreviousAndNextEventListener = false;
 
+const lightbox = document.getElementById("lightbox");
+const mainSection = document.getElementById("main");
+const headerSection = document.getElementById("header");
+
+/**
+ * Initialize the lightbox with the current displayed media (filtered or not)
+ * Declaration of nextMedia() and previousMedia() because each function need
+ * arrayOfMedia
+ * arrayOfMedia come from photographer.js -> displayMedias();
+ * @param {array[object]} arrayOfMedia 
+ */
 export function initLightbox(arrayOfMedia) {
 
     const allMediaNode = document.querySelectorAll(".media-card__media");
 
-    function nextMedia() {
+    function nextMedia(arrayOfMedia) {
         if (currentIndex < arrayOfMedia.length -1) {
             currentIndex += 1;
         } else {
@@ -15,7 +26,7 @@ export function initLightbox(arrayOfMedia) {
         updateLightbox(arrayOfMedia, currentIndex);
     }
     
-    function previousMedia() {
+    function previousMedia(arrayOfMedia) {
         if (currentIndex > 0) {
             currentIndex -= 1;
         } else {
@@ -58,28 +69,38 @@ export function initLightbox(arrayOfMedia) {
         });
     });
 
-    
-    if(!boolTest) {
+    /* Ensure the eventListener on nextBtn and previousBtn are not duplicated
+    when the function is called multiple times 
+    isTherePreviousAndNextEventListener become true after the first call
+    of initLightBox() */
+    if(!isTherePreviousAndNextEventListener) {
         nextBtn.addEventListener("click", handleNextBtnClick);
         nextBtn.addEventListener("keyup", (e) => {
             if(e.key === 'Enter') {
                 handleNextBtnClick();
             }
         });
+        window.addEventListener("keyup", (e) => {
+            if(e.key === 'ArrowRight' && lightbox.style.display === "block") {
+                handleNextBtnClick();
+            }
+        });
+
         previousBtn.addEventListener("click", handlePreviousBtnClick);
         previousBtn.addEventListener("keyup", (e) => {
             if(e.key === 'Enter') {
                 handlePreviousBtnClick();
             }
         });
+        window.addEventListener("keyup", (e) => {
+            if(e.key === 'ArrowLeft' && lightbox.style.display === "block") {
+                handlePreviousBtnClick();
+            }
+        })
     }
     
-    boolTest = true;
+    isTherePreviousAndNextEventListener = true;
 }
-
-const lightbox = document.getElementById("lightbox");
-const mainSection = document.getElementById("main");
-const headerSection = document.getElementById("header");
 
 function openLightbox() {
     lightbox.style.display = "block";
@@ -91,7 +112,7 @@ function openLightbox() {
     headerSection.setAttribute("inert", "true");
     headerSection.setAttribute("aria-hidden", "true");
 
-    console.log("open");
+    //console.log("open");
 }
 
 function closeLightbox() {
@@ -104,7 +125,7 @@ function closeLightbox() {
     headerSection.removeAttribute("inert");
     headerSection.setAttribute("aria-hidden", "false");
 
-    console.log("close");
+    //console.log("close");
 }
 
 const closeLightboxBtn = document.querySelector(".lightbox__content-close-btn");
@@ -125,6 +146,12 @@ window.addEventListener("keyup", (e) => {
     }
 });
 
+/**
+ * Get the index of the targeted media inside arrayOfMedia at the opening of the lightbox
+ * @param {Array[Object]} arrayOfMedia 
+ * @param {Node} target 
+ * @returns {Number} index
+ */
 function getIndex(arrayOfMedia, target) {
     let index;
     switch(target.nodeName) {
@@ -146,6 +173,11 @@ function getIndex(arrayOfMedia, target) {
     }
 }
 
+/**
+ * Change the media displayed in the lightbox based on its index inside arrayOfMedia
+ * @param {Array[Object]} arrayOfMedia 
+ * @param {Number} index 
+ */
 function updateLightbox(arrayOfMedia, index) {
     const mediaWrapper = document.querySelector(".lightbox__content-media");
     const mediaLightbox = arrayOfMedia[index].image ? 
@@ -153,4 +185,3 @@ function updateLightbox(arrayOfMedia, index) {
     
     mediaWrapper.innerHTML = mediaLightbox;
 }
-
