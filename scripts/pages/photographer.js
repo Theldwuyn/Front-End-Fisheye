@@ -1,4 +1,4 @@
-import { getPhotographers } from "../API/api.js";
+import { getPhotographersInfosAndMedias } from "../API/api.js";
 import { PhotographerTemplate } from "../templates/photographerTemplate.js";
 import { MediaFactory } from "../factory/MediaFactory.js";
 import { initLightbox } from "../utils/lightbox.js";
@@ -17,7 +17,7 @@ export function getUrlId() {
 
 /**
  * Add current photograph's name to the contact modal
- * @param {Object} photograph 
+ * @param {PhotographerTemplate} photograph 
  */
 function addNameToModal(photograph) {
     const modalName = document.getElementById("name");
@@ -59,7 +59,7 @@ let arrayOfCardNode = [];
  * Filter the medias array to get only current photograph's media, call MediaFactory for each
  * medias to create the card (article) and the media object, then append the card
  * to the medias-wrapper container
- * @param {Array} medias 
+ * @param {Array} medias from photographers.json
  * @param {Number} urlId 
  */
 export async function displayMedias(medias, urlId) {
@@ -86,9 +86,9 @@ export async function displayMedias(medias, urlId) {
 
 /**
  * Initialize page's features (lightbox, like buttons and stickbar)
- * @param {Array[Object]} arrayOfMediaObject 
- * @param {Array[Node]} arrayOfCardNode 
- * @param {Array[Object]} arrayOfPhotographersObject 
+ * @param {MediaFactory[]} arrayOfMediaObject 
+ * @param {Node[]} arrayOfCardNode 
+ * @param {PhotographerTemplate[]} arrayOfPhotographersObject 
  */
 function initPageFeatures(arrayOfMediaObject, arrayOfCardNode, arrayOfPhotographersObject) {
 
@@ -96,6 +96,7 @@ function initPageFeatures(arrayOfMediaObject, arrayOfCardNode, arrayOfPhotograph
 
     arrayOfCardNode.forEach(card => {
         const likeBtn = card.querySelector(".media-card__content--likeBtn");
+        //console.log(likeBtn);
         likeBtn.addEventListener("click", (e) => {
             if (e.target.nodeName === "SPAN") {
                 likeBtnHandler(arrayOfMediaObject, e.target);
@@ -116,8 +117,8 @@ function initPageFeatures(arrayOfMediaObject, arrayOfCardNode, arrayOfPhotograph
  * Launch the photograph page app
  */
 async function init() {
-    const { photographers } = await getPhotographers();
-    const { media } = await getPhotographers();
+    const { photographers } = await getPhotographersInfosAndMedias();
+    const { media } = await getPhotographersInfosAndMedias();
     //console.log(media);
     const urlId = getUrlId();
 

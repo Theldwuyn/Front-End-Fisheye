@@ -20,14 +20,14 @@ export class Videos extends Media {
         const article = document.createElement('article');
         article.classList.add("media-card");
         const videoCardContent = `
-            <video controls class="media-card__media" tabindex="0" title="${this.title}" aria-label="${this.title}">
+            <video controls class="media-card__media" tabindex="0" title="${this.title}" aria-label="${this.title} - Cliquez pour une vue zoomé">
                 <source src="${this.source}" type="video/mp4">
                 <track default kind="captions" src="${this.track}" srclang="fr">
             </video>
             <div class="media-card__content">
                 <h3 class="red-font media-card__content--title">${this.title}</h3>
                 <p class="media-card__content--likeBtn">${this.likes}
-                    <span class="fa-solid fa-heart red-font media-card__content--likeBtn" role="img" aria-label="likes" tabindex="0"></span>
+                    <span class="fa-solid fa-heart red-font" role="img" aria-label="bouton like" tabindex="0"></span>
                 </p>
             </div>
             `;
@@ -61,8 +61,8 @@ export class Photos extends Media {
             <img src="${this.source}" alt="${this.title}" class="media-card__media" tabindex="0" aria-label="${this.title} - Cliquez pour une vue zoomé">
             <div class="media-card__content">
                 <h3 class="red-font media-card__content--title">${this.title}</h3>
-                <p class="media-card__content--likeBtn">${this.likes}
-                    <span class="fa-solid fa-heart red-font media-card__content--likeBtn" role="img" aria-label="likes" tabindex="0"></span>
+                <p class=" media-card__content--likeBtn">${this.likes}
+                    <span class="fa-solid fa-heart red-font" role="img" aria-label="bouton likes" tabindex="0"></span>
                 </p>
             </div>
             `;

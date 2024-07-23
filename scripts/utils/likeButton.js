@@ -1,15 +1,18 @@
 import { updateStickbar } from "./stickbar.js";
 
 /**
- * Change a media's like amount when the like button is clicked
- * @param {Array[Object]} arrayOfMedia 
+ * Change a media's like amount when the like button is clicked and update
+ * the stickbar
+ * @param {typeof Array<Videos|Photos>} arrayOfMedia 
  * @param {Node} target 
  */
 export function likeBtnHandler(arrayOfMedia, target) {
 
     let cardMedia = target.closest(".media-card").firstElementChild;
+    console.log(target);
 
     const likeBtn = target.parentElement;
+    console.log(likeBtn.classList.contains("active-like"));
     let mediaLikes = Number(likeBtn.textContent);
     
     if (likeBtn.classList.contains("active-like")) {
@@ -21,7 +24,7 @@ export function likeBtnHandler(arrayOfMedia, target) {
     }
 
     likeBtn.innerHTML = `${mediaLikes} 
-    <span class="fa-solid fa-heart red-font media-card__content--likeBtn" role="img" aria-label="likes" tabindex="0"></span>`;
+    <span class="fa-solid fa-heart red-font" role="img" aria-label="bouton like" tabindex="0"></span>`;
 
     updateJsonLike(mediaLikes, arrayOfMedia, cardMedia);
     const newTotalLike = updateTotalLike(arrayOfMedia);
@@ -30,9 +33,9 @@ export function likeBtnHandler(arrayOfMedia, target) {
 }
 
 /**
- * Update a media's like amount in the json file
+ * Update a media object's like amount
  * @param {Number} mediaLikes 
- * @param {Array[Object]} arrayOfMedia 
+ * @param {typeof Array<Videos|Photos>} arrayOfMedia 
  * @param {Node} cardMedia 
  */
 function updateJsonLike(mediaLikes, arrayOfMedia, cardMedia) {
@@ -45,7 +48,7 @@ function updateJsonLike(mediaLikes, arrayOfMedia, cardMedia) {
  * Return the object "media" (video or photo) in arrayOfMedia matching the like button's
  * media targeted
  * @param {Node} cardMedia 
- * @param {Array[Object]} arrayOfMedia 
+ * @param {typeof Array<Videos|Photos>} arrayOfMedia 
  * @returns 
  */
 function getMediaObject(cardMedia, arrayOfMedia) {
@@ -69,7 +72,7 @@ function getMediaObject(cardMedia, arrayOfMedia) {
 
 /**
  * Calculate the new total of like of every media
- * @param {Array[Object]} arrayOfMedia 
+ * @param {typeof Array<Videos|Photos>} arrayOfMedia 
  * @returns {Number} newTotalLike
  */
 function updateTotalLike(arrayOfMedia) {

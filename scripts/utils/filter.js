@@ -1,4 +1,4 @@
-import { getPhotographers } from "../API/api.js";
+import { getPhotographersInfosAndMedias } from "../API/api.js";
 import { displayMedias, getUrlId } from "../pages/photographer.js";
 
 
@@ -12,8 +12,8 @@ const icon = document.querySelector(".select-container__icon-wrapper");
 
 const urlId = getUrlId();
 
-/* rotateIcon() and toggleHiddenClass() manage the displaying of the filter menu
-and its icon */
+/* rotateIcon(), changeButtonBorderRadiusStyle() and toggleHiddenClass() manage 
+the displaying of the filter menu and its icon */
 function rotateIcon() {
     if(optionsList.classList.contains("hidden")) {
         icon.classList.remove("rotate");
@@ -71,11 +71,11 @@ async function updateMedia(filterOption) {
 /**
  * Filter the media from json file based on the selected filter
  * @param {string} filterOption data-value of selected filter
- * @returns {Array} filteredMedia or media if no filter
+ * @returns {Promise<Array>} filteredMedia or media if no filter
  */
 async function filterMedia(filterOption) {
     let filteredMedia = [];
-    const { media } = await getPhotographers();
+    const { media } = await getPhotographersInfosAndMedias();
     switch(filterOption) {
         case "Popularité":
             // Sort from most popular to less popular

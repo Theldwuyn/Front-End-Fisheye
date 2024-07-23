@@ -10,13 +10,16 @@ const headerSection = document.getElementById("header");
  * Declaration of nextMedia() and previousMedia() because each function need
  * arrayOfMedia
  * arrayOfMedia come from photographer.js -> displayMedias();
- * @param {array[object]} arrayOfMedia 
+ * @param {typeof Array<Videos|Photos>} arrayOfMedia 
  */
 export function initLightbox(arrayOfMedia) {
 
+    const nextBtn = document.getElementById("nextBtn");
+    const previousBtn = document.getElementById("previousBtn");
+
     const allMediaNode = document.querySelectorAll(".media-card__media");
 
-    function nextMedia(arrayOfMedia) {
+    function nextMedia() {
         if (currentIndex < arrayOfMedia.length -1) {
             currentIndex += 1;
         } else {
@@ -26,7 +29,7 @@ export function initLightbox(arrayOfMedia) {
         updateLightbox(arrayOfMedia, currentIndex);
     }
     
-    function previousMedia(arrayOfMedia) {
+    function previousMedia() {
         if (currentIndex > 0) {
             currentIndex -= 1;
         } else {
@@ -36,17 +39,38 @@ export function initLightbox(arrayOfMedia) {
         updateLightbox(arrayOfMedia, currentIndex);
     }
     
-    function handleNextBtnClick() {
-        nextMedia();
+    function handleNextBtnEvent(e) {
+        if(e.type === 'click' || e.key === 'Enter' || 
+            (e.key === 'ArrowRight' && lightbox.style.display === "block")) {
+            nextMedia();
+        }
     }
     
-    function handlePreviousBtnClick() {
-        previousMedia();
+    function handlePreviousBtnEvent(e) {
+        if(e.type === 'click' || e.key === 'Enter') {
+            previousMedia();
+        }
     }
 
-    const nextBtn = document.getElementById("nextBtn");
-    const previousBtn = document.getElementById("previousBtn");
-   
+    function handleArrowKeyEventForNextAndPreviousMedia(e) {
+        if(e.key === 'ArrowRight' && lightbox.style.display === "block") {
+            nextMedia();
+        } else if (e.key === 'ArrowLeft' && lightbox.style.display === "block") {
+            previousMedia();
+        }
+    }
+
+    /* Ensure all eventListener to navigate through the lightbox are removed when
+    the function is called multiple times before adding them to avoid multiple
+    eventListener
+    isTherePreviousAndNextEventListener become true after the first call
+    of initLightBox() */
+    if(isTherePreviousAndNextEventListener) {
+        nextBtn.cleanUpListener();
+        previousBtn.cleanUpListener();
+        window.cleanUpListener();
+    }
+
 
     allMediaNode.forEach(media => {
         media.addEventListener("click", (e) => {
@@ -69,36 +93,27 @@ export function initLightbox(arrayOfMedia) {
         });
     });
 
-    /* Ensure the eventListener on nextBtn and previousBtn are not duplicated
-    when the function is called multiple times 
-    isTherePreviousAndNextEventListener become true after the first call
-    of initLightBox() */
-    if(!isTherePreviousAndNextEventListener) {
-        nextBtn.addEventListener("click", handleNextBtnClick);
-        nextBtn.addEventListener("keyup", (e) => {
-            if(e.key === 'Enter') {
-                handleNextBtnClick();
-            }
-        });
-        window.addEventListener("keyup", (e) => {
-            if(e.key === 'ArrowRight' && lightbox.style.display === "block") {
-                handleNextBtnClick();
-            }
-        });
+    nextBtn.addEventListener("click", handleNextBtnEvent);
+    nextBtn.addEventListener("keyup", handleNextBtnEvent);
+    window.addEventListener("keyup", handleArrowKeyEventForNextAndPreviousMedia);
 
-        previousBtn.addEventListener("click", handlePreviousBtnClick);
-        previousBtn.addEventListener("keyup", (e) => {
-            if(e.key === 'Enter') {
-                handlePreviousBtnClick();
-            }
-        });
-        window.addEventListener("keyup", (e) => {
-            if(e.key === 'ArrowLeft' && lightbox.style.display === "block") {
-                handlePreviousBtnClick();
-            }
-        })
+    previousBtn.addEventListener("click", handlePreviousBtnEvent);
+    previousBtn.addEventListener("keyup", handlePreviousBtnEvent);
+
+    nextBtn.cleanUpListener = () => {
+        nextBtn.removeEventListener("click", handleNextBtnEvent);
+        nextBtn.removeEventListener("keyup", handleNextBtnEvent);
     }
     
+    previousBtn.cleanUpListener = () => {
+        previousBtn.removeEventListener("click", handlePreviousBtnEvent);
+        previousBtn.removeEventListener("keyup", handlePreviousBtnEvent);
+    }
+
+    window.cleanUpListener = () => {
+        window.removeEventListener("keyup", handleArrowKeyEventForNextAndPreviousMedia);
+    }
+
     isTherePreviousAndNextEventListener = true;
 }
 
@@ -148,7 +163,7 @@ window.addEventListener("keyup", (e) => {
 
 /**
  * Get the index of the targeted media inside arrayOfMedia at the opening of the lightbox
- * @param {Array[Object]} arrayOfMedia 
+ * @param {typeof Array<Videos|Photos>} arrayOfMedia 
  * @param {Node} target 
  * @returns {Number} index
  */
@@ -175,10 +190,11 @@ function getIndex(arrayOfMedia, target) {
 
 /**
  * Change the media displayed in the lightbox based on its index inside arrayOfMedia
- * @param {Array[Object]} arrayOfMedia 
+ * @param {typeof Array<Videos|Photos>} arrayOfMedia 
  * @param {Number} index 
  */
 function updateLightbox(arrayOfMedia, index) {
+    //console.log(arrayOfMedia);
     const mediaWrapper = document.querySelector(".lightbox__content-media");
     const mediaLightbox = arrayOfMedia[index].image ? 
         arrayOfMedia[index].getPhotoLightbox() : arrayOfMedia[index].getVideoLightbox();

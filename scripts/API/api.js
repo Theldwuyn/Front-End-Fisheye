@@ -1,4 +1,4 @@
-export async function getPhotographers() {
+export async function getPhotographersInfosAndMedias() {
     
     const photographers = await fetch("./data/photographers.json")
                                 .then(photographers => photographers.json());

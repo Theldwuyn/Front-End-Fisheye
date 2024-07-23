@@ -43,7 +43,7 @@
   font-weight: 700;
   font-size: 1.2em;
 }
-.media-card__content--likeBtn i {
+.media-card__content--likeBtn span {
   cursor: pointer;
 }
 

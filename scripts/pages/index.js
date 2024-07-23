@@ -1,5 +1,5 @@
 import { PhotographerTemplate } from "../templates/photographerTemplate.js";
-import { getPhotographers } from "../API/api.js";
+import { getPhotographersInfosAndMedias } from "../API/api.js";
 
 
 async function displayData(photographers) {
@@ -8,15 +8,15 @@ async function displayData(photographers) {
     photographers.forEach((photographer) => {
         const photographerModel = new PhotographerTemplate(photographer);
         //console.log(photographerModel);
-        const userCardDOM = photographerModel.getUserCardDOM();
+        const photographCard = photographerModel.getPhotographCard();
         //console.log(userCardDOM);
-        photographersSection.appendChild(userCardDOM);
+        photographersSection.appendChild(photographCard);
     });
 }
 
 async function init() {
     // Get photographers data from json file
-    const { photographers } = await getPhotographers();
+    const { photographers } = await getPhotographersInfosAndMedias();
     displayData(photographers);
 }
 

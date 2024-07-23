@@ -9,11 +9,11 @@ export class PhotographerTemplate {
         this.price = data.price;
     }
 
-    getUserCardDOM() {
+    getPhotographCard() {
         const article = document.createElement( 'article' );
         
         const userCardContent = `
-            <a href="photographer.html?id=${this.id}">
+            <a href="photographer.html?id=${this.id}" aria-label="Visitez la page de ${this.name}">
                 <div class="img-container">
                     <img src="${this.picture}" alt="${this.name}">
                 </div>
@@ -27,13 +27,12 @@ export class PhotographerTemplate {
         article.innerHTML = userCardContent;
         //console.log(article);
         
-        return (article);
+        return article;
     }
 
     createPhotographerHeader() {
         const headerContentWrapper = document.querySelector(".photograph-header__content");
-        const headerImgWrapper = document.querySelector(".photograph-header__img");
-        headerImgWrapper.classList.add("img-container");
+        const headerImgWrapper = document.querySelector(".img-container");
 
         const headerContent = `
             <h1>${this.name}</h1>

@@ -5,7 +5,7 @@ import { getUrlId } from "../pages/photographer.js";
  * likes
  * /!\ This function is called by displayMedia() from photographer.js, it will
  * then be called each time the user apply a filter (see updateMedia() in filter.js)
- * @param {Array[Object]} arrayOfMedia 
+ * @param {typeof Array<Videos|Photos>} arrayOfMedia 
  * @param {Object} photographersObject 
  */
 export function initStickbar(arrayOfMedia, photographersObject) {
@@ -21,9 +21,7 @@ export function initStickbar(arrayOfMedia, photographersObject) {
     const currentPhotograph = photographersObject.find((photograph) => photograph.id === urlId);
 
     /* Avoid duplication of data inside stickbar when the function
-    is called multiple times
-    As this function is called by displayMedia() from photographer.js, it will
-    be call each time the user apply a filter */
+    is called multiple times */
     if (!stickbar.hasChildNodes()) {
         stickbarContent.innerHTML = `
             <p class="total-like">${totalLikes} <span class="fa-solid fa-heart"></span></p>
