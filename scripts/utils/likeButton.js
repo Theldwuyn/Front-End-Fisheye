@@ -26,7 +26,7 @@ export function likeBtnHandler(arrayOfMedia, target) {
     likeBtn.innerHTML = `${mediaLikes} 
     <span class="fa-solid fa-heart red-font" role="img" aria-label="bouton like" tabindex="0"></span>`;
 
-    updateJsonLike(mediaLikes, arrayOfMedia, cardMedia);
+    updateMediaObjectLikes(mediaLikes, arrayOfMedia, cardMedia);
     const newTotalLike = updateTotalLike(arrayOfMedia);
     updateStickbar(newTotalLike);
 
@@ -38,7 +38,7 @@ export function likeBtnHandler(arrayOfMedia, target) {
  * @param {typeof Array<Videos|Photos>} arrayOfMedia 
  * @param {Node} cardMedia 
  */
-function updateJsonLike(mediaLikes, arrayOfMedia, cardMedia) {
+function updateMediaObjectLikes(mediaLikes, arrayOfMedia, cardMedia) {
 
     const mediaObject = getMediaObject(cardMedia, arrayOfMedia);
     mediaObject.likes = mediaLikes;

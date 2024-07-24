@@ -40,8 +40,7 @@ export function initLightbox(arrayOfMedia) {
     }
     
     function handleNextBtnEvent(e) {
-        if(e.type === 'click' || e.key === 'Enter' || 
-            (e.key === 'ArrowRight' && lightbox.style.display === "block")) {
+        if(e.type === 'click' || e.key === 'Enter') {
             nextMedia();
         }
     }
