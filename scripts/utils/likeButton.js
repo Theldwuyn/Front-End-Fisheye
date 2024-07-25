@@ -9,10 +9,10 @@ import { updateStickbar } from "./stickbar.js";
 export function likeBtnHandler(arrayOfMedia, target) {
 
     let cardMedia = target.closest(".media-card").firstElementChild;
-    console.log(target);
+    //console.log(target);
 
     const likeBtn = target.parentElement;
-    console.log(likeBtn.classList.contains("active-like"));
+    //console.log(likeBtn.classList.contains("active-like"));
     let mediaLikes = Number(likeBtn.textContent);
     
     if (likeBtn.classList.contains("active-like")) {
